@@ -9,8 +9,24 @@
    <title>Document</title>
 </head>
 <body>
-   <div id="site"></div>
-   
+   <div id="site">
+      <div  v-for="category in categories" 
+            :key="category.id" 
+            @drop="onDrop($event, category.id, items)" 
+            class="drop"
+            @dragover.prevent
+            @dragenter.prevent>
+         <h4>{{category.title}}</h4>
+         <div  v-for="item in items.filter(i => i.categoryId === category.id)" 
+               :key="item.id"  
+               @dragstart="onDragStart($event, item)" 
+               class="drag"
+               draggable="true">
+            <h5>{{item.title}}</h5>
+         </div>
+      </div>
+   </div>
+
    <script src="script.js"></script>
 </body>
 </html>
